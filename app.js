@@ -1,4 +1,4 @@
-const BASE_URL = "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies";
+const BASE_URL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies";
 const dropdowns = document.querySelectorAll('.dropdown select')
 const btn = document.querySelector('form button')
 const fromCurr = document.querySelector('.from select')
@@ -41,10 +41,12 @@ const updateExchangeRate = async () => {
         amount.value = 1
         amountVal = 1
     }
-    const URL = `${BASE_URL}/${fromCurr.value.toLowerCase()}/${toCurr.value.toLowerCase()}.json`
+    const from_Currency = fromCurr.value.toLowerCase()
+    const to_Currency = toCurr.value.toLowerCase()
+    const URL = `${BASE_URL}/${from_Currency}.json`
     let response = await fetch(URL)
     let data = await response.json()
-    let rate = data[toCurr.value.toLowerCase()]
+    let rate = data[from_Currency][to_Currency]
     
     let finalAmount = amountVal * rate
     msg.innerText = `${amountVal} ${fromCurr.value} = ${finalAmount} ${toCurr.value}`
